@@ -1,0 +1,42 @@
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  release:
+
+    runs-on: ubuntu-latest
+    env:
+      RUSTC_WRAPPER: sccache
+      SCCACHE_CACHE_SIZE: 1G
+      SCCACHE_DIR: /home/runner/.cache/sccache
+      # SCCACHE_RECACHE: 1 # Uncomment this to clear cache, then comment
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          submodules: 'recursive'
+      - name: install build tools (Linux)
+        run: |
+          #pacman -Sy sudo rustup clang llvm lld make git python-pip --noconfirm
+          #sudo apt-get install build-essential make git clang python3-pip
+          #sudo apt-get install python3-pip
+          #pip install jaconv
+          rm -f ~/.cargo/config*
+      - name: Build
+        run: |
+          mkdir -p release
+          (cd userdic; bash mkdict.sh)
+          ls release 1>&2
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          omitBody: true
+          artifacts: 'release/*'
+          token: ${{ secrets.GITHUB_TOKEN }}
