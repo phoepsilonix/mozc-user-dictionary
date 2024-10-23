@@ -29,6 +29,7 @@ ls -la $USERDIC2*
 SYSTEMDIC3=sudachi.csv
 USERDIC3=user_dic-SudachiDict
 _sudachidict_date=$(curl -s 'http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict-raw/' | grep -o '<td>[0-9]*</td>' | grep -o '[0-9]*' | sort -n | tail -n 1)
+echo $_sudachidict_date
 curl -L -o LICENSE.SudachiDict https://github.com/WorksApplications/SudachiDict/raw/refs/heads/develop/LICENSE-2.0.txt
 curl -L -o LEGAL.SudachiDict https://github.com/WorksApplications/SudachiDict/raw/refs/heads/develop/LEGAL
 curl -LO "http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict-raw/${_sudachidict_date}/small_lex.zip"
