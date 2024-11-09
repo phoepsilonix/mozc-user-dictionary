@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo $@
-curl -LO https://github.com/phoepsilonix/dict-to-mozc/releases/download/v0.4.1/dict-to-mozc-x86_64-unknown-linux-gnu.tar.gz
+curl -LO https://github.com/phoepsilonix/dict-to-mozc/releases/download/v0.4.6/dict-to-mozc-x86_64-unknown-linux-gnu.tar.gz
 tar xf dict-to-mozc-x86_64-unknown-linux-gnu.tar.gz --strip-component=1
 curl -LO https://github.com/google/mozc/raw/refs/heads/master/src/data/dictionary_oss/id.def
 PATH=$HOME/.cargo/bin:$PATH
